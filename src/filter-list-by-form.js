@@ -2,7 +2,6 @@ class FilterListByForm {
 
   constructor() {
     this.formNode = document.querySelector('form.form-list-filter-js');
-    this.formNode.scrollIntoView({ behavior: "smooth" });
     this.liNodes = document.querySelectorAll('ul.form-list-filter-js li');
     this.addEventListeners();
     this.updateFormAndEntries();
@@ -16,6 +15,7 @@ class FilterListByForm {
   }
 
   updateFormAndEntries() {
+    this.formNode.scrollIntoView({ behavior: "smooth" });
     this.updateFormFromUrl();
     this.updateEntries();
   };
