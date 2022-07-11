@@ -91,9 +91,7 @@ class FilterListByForm {
   initForm() {
     const formNode = document.querySelector('form.form-list-filter-js');
     Array.from(formNode.elements).forEach((elementNode) => {
-      //elementNode.addEventListener('change', this.updateUrlFromForm);
-      //elementNode.addEventListener('change', this.updateUrlAndEntries);
-      elementNode.addEventListener('change', this.updateEntries);
+      elementNode.addEventListener('change', this.updateUrlAndEntries);
     });
     this.updateFormAndEntries();
     formNode.scrollIntoView({ behavior: "smooth" });
