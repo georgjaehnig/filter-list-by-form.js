@@ -1,11 +1,25 @@
 class FilterListByForm {
 
-  constructor() {
-    window.addEventListener('hashchange', this.updateFormAndEntries)
-    this.initForm();
+  static initForm() {
+    window.addEventListener('hashchange', FilterListByForm.updateFormAndEntries)
+    const formNode = document.querySelector('form.form-list-filter-js');
+    Array.from(formNode.elements).forEach((elementNode) => {
+      elementNode.addEventListener('change', FilterListByForm.updateUrlAndEntries);
+    });
+    FilterListByForm.updateFormAndEntries();
+    formNode.scrollIntoView({ behavior: "smooth" });
   }
 
-  updateFormFromUrl() {
+  static updateFormAndEntries() {
+    FilterListByForm.updateFormFromUrl();
+    FilterListByForm.updateEntries();
+  };
+  static updateUrlAndEntries() {
+    FilterListByForm.updateUrlFromForm();
+    FilterListByForm.updateEntries();
+  };
+
+  static updateFormFromUrl() {
     const url = new URL(document.URL);
     const urlSearchParams = new URLSearchParams(url.hash.slice(1, 200));
 
@@ -26,7 +40,7 @@ class FilterListByForm {
     });
   }
 
-  updateUrlFromForm() {
+  static updateUrlFromForm() {
     const formNode = document.querySelector('form.form-list-filter-js');
     const urlSearchParams = new URLSearchParams();
     Array.from(formNode.elements).forEach((elementNode) => {
@@ -50,50 +64,32 @@ class FilterListByForm {
 
   }
 
-  updateEntries() {
-    this.displayAllLi();
+  static updateEntries() {
+    FilterListByForm.displayAllLi();
     const url = new URL(document.URL);
     const urlSearchParams = new URLSearchParams(url.hash.slice(1, 200));
     urlSearchParams.forEach((value, key) => {
       if (value == '1') {
-        this.hideAllLiWithoutClass(key);
+        FilterListByForm.hideAllLiWithoutClass(key);
       } else {
-        this.hideAllLiWithoutClass(key + '-' + value);
+        FilterListByForm.hideAllLiWithoutClass(key + '-' + value);
       }
     });
   }
 
-  displayAllLi() {
+  static displayAllLi() {
     const liNodes = document.querySelectorAll('ul.form-list-filter-js li');
     liNodes.forEach((liNode) => {
       liNode.style.display = 'list-item';
     });
   }
 
-  hideAllLiWithoutClass(className) {
+  static hideAllLiWithoutClass(className) {
     const liNodes = document.querySelectorAll('ul.form-list-filter-js li');
     liNodes.forEach((liNode) => {
       if (!liNode.classList.contains(className)) {
         liNode.style.display = 'none';
       }
     });
-  }
-
-  updateFormAndEntries() {
-    this.updateFormFromUrl();
-    this.updateEntries();
-  };
-  updateUrlAndEntries() {
-    this.updateUrlFromForm();
-    this.updateEntries();
-  };
-
-  initForm() {
-    const formNode = document.querySelector('form.form-list-filter-js');
-    Array.from(formNode.elements).forEach((elementNode) => {
-      elementNode.addEventListener('change', this.updateUrlAndEntries);
-    });
-    this.updateFormAndEntries();
-    formNode.scrollIntoView({ behavior: "smooth" });
   }
 }
