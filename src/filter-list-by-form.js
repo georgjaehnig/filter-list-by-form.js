@@ -1,25 +1,31 @@
 class FilterListByForm {
 
-  static initForm() {
-    window.addEventListener('hashchange', FilterListByForm.updateFormAndEntries)
-    const formNode = document.querySelector('form.form-list-filter-js');
-    Array.from(formNode.elements).forEach((elementNode) => {
-      elementNode.addEventListener('change', FilterListByForm.updateUrlAndEntries);
-    });
-    FilterListByForm.updateFormAndEntries();
-    formNode.scrollIntoView({ behavior: "smooth" });
+  constructor() {
+    this.formNode = document.querySelector('form.form-list-filter-js');
+    this.formNode.scrollIntoView({ behavior: "smooth" });
+    this.liNodes = document.querySelectorAll('ul.form-list-filter-js li');
+    this.addEventListeners();
+    this.updateFormAndEntries();
   }
 
-  static updateFormAndEntries() {
-    FilterListByForm.updateFormFromUrl();
-    FilterListByForm.updateEntries();
-  };
-  static updateUrlAndEntries() {
-    FilterListByForm.updateUrlFromForm();
-    FilterListByForm.updateEntries();
+  addEventListeners() {
+    window.addEventListener('hashchange', this.updateFormAndEntries);
+    Array.from(this.formNode.elements).forEach((elementNode) => {
+      elementNode.addEventListener('change', this.updateUrlAndEntries.bind(this));
+    });
+  }
+
+  updateFormAndEntries() {
+    this.updateFormFromUrl();
+    this.updateEntries();
   };
 
-  static updateFormFromUrl() {
+  updateUrlAndEntries() {
+    this.updateUrlFromForm();
+    this.updateEntries();
+  };
+
+  updateFormFromUrl() {
     const url = new URL(document.URL);
     const urlSearchParams = new URLSearchParams(url.hash.slice(1, 200));
 
@@ -40,10 +46,9 @@ class FilterListByForm {
     });
   }
 
-  static updateUrlFromForm() {
-    const formNode = document.querySelector('form.form-list-filter-js');
+  updateUrlFromForm() {
     const urlSearchParams = new URLSearchParams();
-    Array.from(formNode.elements).forEach((elementNode) => {
+    Array.from(this.formNode.elements).forEach((elementNode) => {
       switch (elementNode.type) {
         case 'checkbox':
           if (elementNode.checked) {
@@ -64,29 +69,27 @@ class FilterListByForm {
 
   }
 
-  static updateEntries() {
-    FilterListByForm.displayAllLi();
+  updateEntries() {
+    this.displayAllLi();
     const url = new URL(document.URL);
     const urlSearchParams = new URLSearchParams(url.hash.slice(1, 200));
     urlSearchParams.forEach((value, key) => {
       if (value == '1') {
-        FilterListByForm.hideAllLiWithoutClass(key);
+        this.hideAllLiWithoutClass(key);
       } else {
-        FilterListByForm.hideAllLiWithoutClass(key + '-' + value);
+        this.hideAllLiWithoutClass(key + '-' + value);
       }
     });
   }
 
-  static displayAllLi() {
-    const liNodes = document.querySelectorAll('ul.form-list-filter-js li');
-    liNodes.forEach((liNode) => {
+  displayAllLi() {
+    this.liNodes.forEach((liNode) => {
       liNode.style.display = 'list-item';
     });
   }
 
-  static hideAllLiWithoutClass(className) {
-    const liNodes = document.querySelectorAll('ul.form-list-filter-js li');
-    liNodes.forEach((liNode) => {
+  hideAllLiWithoutClass(className) {
+    this.liNodes.forEach((liNode) => {
       if (!liNode.classList.contains(className)) {
         liNode.style.display = 'none';
       }
