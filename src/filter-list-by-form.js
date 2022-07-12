@@ -77,7 +77,7 @@ class FilterListByForm {
       if (value == '1') {
         this.hideAllLiWithoutClass(key);
       } else {
-        this.hideAllLiWithoutClass(key + '-' + value);
+        this.hideAllLiWithoutClass(key + '_' + value);
       }
     });
   }
