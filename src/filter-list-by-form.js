@@ -4,25 +4,27 @@ class FilterListByForm {
     this.formNode = document.querySelector('form.form-list-filter-js');
     this.liNodes = document.querySelectorAll('ul.form-list-filter-js li');
     this.addEventListeners();
-    this.updateFormAndEntries();
+    this.updateFromUrl();
   }
 
   addEventListeners() {
-    window.addEventListener('hashchange', this.updateFormAndEntries);
+    window.addEventListener('hashchange', this.updateFromUrl);
     Array.from(this.formNode.elements).forEach((elementNode) => {
-      elementNode.addEventListener('change', this.updateUrlAndEntries.bind(this));
+      elementNode.addEventListener('change', this.updateFromForm.bind(this));
     });
   }
 
-  updateFormAndEntries() {
+  updateFromUrl() {
     //this.formNode.scrollIntoView({ behavior: "smooth" });
     this.updateFormFromUrl();
     this.updateEntries();
+    this.updateFormClasses();
   };
 
-  updateUrlAndEntries() {
+  updateFromForm() {
     this.updateUrlFromForm();
     this.updateEntries();
+    this.updateFormClasses();
   };
 
   updateFormFromUrl() {
@@ -37,11 +39,9 @@ class FilterListByForm {
       switch (elementNode.type) {
         case 'checkbox':
           elementNode.checked = JSON.parse(urlSearchParams.get(elementNode.name));
-          elementNode.classList.add('used');
           break;
         case 'select-one':
           elementNode.value = urlSearchParams.get(elementNode.name);
-          elementNode.classList.add('used');
           break;
         default:
       }
@@ -53,20 +53,13 @@ class FilterListByForm {
     Array.from(this.formNode.elements).forEach((elementNode) => {
       switch (elementNode.type) {
         case 'checkbox':
-          let label = document.querySelector('label[for="' + elementNode.name +'"');
-          elementNode.classList.remove('used');
-          label.classList.remove('used');
           if (elementNode.checked) {
             urlSearchParams.set(elementNode.name, 1);
-            elementNode.classList.add('used');
-            label.classList.add('used');
           }
           break;
         case 'select-one':
-          elementNode.classList.remove('used');
           if (elementNode.value != '') {
             urlSearchParams.set(elementNode.name, elementNode.value);
-            elementNode.classList.add('used');
           }
           break;
       }
@@ -86,6 +79,28 @@ class FilterListByForm {
         this.hideAllLiWithoutClass(key);
       } else {
         this.hideAllLiWithoutClass(key + '_' + value);
+      }
+    });
+  }
+  
+  updateFormClasses() {
+    Array.from(this.formNode.elements).forEach((elementNode) => {
+      let label = document.querySelector('label[for="' + elementNode.name +'"');
+      switch (elementNode.type) {
+        case 'checkbox':
+          elementNode.classList.remove('used');
+          label.classList.remove('used');
+          if (elementNode.checked) {
+            elementNode.classList.add('used');
+            label.classList.add('used');
+          }
+          break;
+        case 'select-one':
+          elementNode.classList.remove('used');
+          if (elementNode.value != '') {
+            elementNode.classList.add('used');
+          }
+          break;
       }
     });
   }
