@@ -37,9 +37,11 @@ class FilterListByForm {
       switch (elementNode.type) {
         case 'checkbox':
           elementNode.checked = JSON.parse(urlSearchParams.get(elementNode.name));
+          elementNode.classList.add('used');
           break;
         case 'select-one':
           elementNode.value = urlSearchParams.get(elementNode.name);
+          elementNode.classList.add('used');
           break;
         default:
       }
@@ -51,13 +53,20 @@ class FilterListByForm {
     Array.from(this.formNode.elements).forEach((elementNode) => {
       switch (elementNode.type) {
         case 'checkbox':
+          let label = document.querySelector('label[for="' + elementNode.name +'"');
+          elementNode.classList.remove('used');
+          label.classList.remove('used');
           if (elementNode.checked) {
             urlSearchParams.set(elementNode.name, 1);
+            elementNode.classList.add('used');
+            label.classList.add('used');
           }
           break;
         case 'select-one':
+          elementNode.classList.remove('used');
           if (elementNode.value != '') {
             urlSearchParams.set(elementNode.name, elementNode.value);
+            elementNode.classList.add('used');
           }
           break;
       }
