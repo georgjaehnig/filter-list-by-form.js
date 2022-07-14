@@ -82,23 +82,23 @@ class FilterListByForm {
       }
     });
   }
-  
+
   updateFormClasses() {
     Array.from(this.formNode.elements).forEach((elementNode) => {
-      const label = document.querySelector('label[for="' + elementNode.name +'"');
+      const label = document.querySelector('label[for="' + elementNode.name + '"');
       elementNode.classList.remove('used');
-      label.classList.remove('used');
+      label && label.classList.remove('used');
       switch (elementNode.type) {
         case 'checkbox':
           if (elementNode.checked) {
             elementNode.classList.add('used');
-            label.classList.add('used');
+            label && label.classList.add('used');
           }
           break;
         case 'select-one':
           if (elementNode.value != '') {
             elementNode.classList.add('used');
-            label.classList.add('used');
+            label && label.classList.add('used');
           }
           break;
       }
