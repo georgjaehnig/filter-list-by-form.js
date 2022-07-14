@@ -86,17 +86,16 @@ class FilterListByForm {
   updateFormClasses() {
     Array.from(this.formNode.elements).forEach((elementNode) => {
       const label = document.querySelector('label[for="' + elementNode.name +'"');
+      elementNode.classList.remove('used');
+      label.classList.remove('used');
       switch (elementNode.type) {
         case 'checkbox':
-          elementNode.classList.remove('used');
-          label.classList.remove('used');
           if (elementNode.checked) {
             elementNode.classList.add('used');
             label.classList.add('used');
           }
           break;
         case 'select-one':
-          elementNode.classList.remove('used');
           if (elementNode.value != '') {
             elementNode.classList.add('used');
             label.classList.add('used');
