@@ -60,7 +60,6 @@ class FilterListByForm {
             urlSearchParams.set(elementNode.name, elementNode.value);
           }
           break;
-        default:
       }
     });
     const url = new URL(document.URL);
