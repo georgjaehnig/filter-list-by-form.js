@@ -31,8 +31,7 @@ class FilterListByForm {
     const url = new URL(document.URL);
     const urlSearchParams = new URLSearchParams(url.hash.slice(1, 200));
 
-    const formNode = document.querySelector('form.form-list-filter-js');
-    Array.from(formNode.elements).forEach((elementNode) => {
+    Array.from(this.formNode.elements).forEach((elementNode) => {
       if (!urlSearchParams.has(elementNode.name)) {
         return;
       }
