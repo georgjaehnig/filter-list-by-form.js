@@ -2,9 +2,9 @@ class FilterListByForm {
 
   separator = '_';
 
-  constructor() {
-    this.formNode = document.querySelector('form.form-list-filter-js');
-    this.liNodes = document.querySelectorAll('ul.form-list-filter-js li');
+  constructor(formSelector, itemsSelector) {
+    this.formNode = document.querySelector(formSelector);
+    this.liNodes = document.querySelectorAll(itemsSelector);
     this.addEventListeners();
     this.updateFromUrl();
   }
