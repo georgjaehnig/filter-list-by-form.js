@@ -4,7 +4,7 @@ class FilterListByForm {
 
   constructor(formSelector, itemsSelector) {
     this.formNode = document.querySelector(formSelector);
-    this.liNodes = document.querySelectorAll(itemsSelector);
+    this.itemNodes = document.querySelectorAll(itemsSelector);
     this.addEventListeners();
     this.updateFromUrl();
   }
@@ -107,13 +107,13 @@ class FilterListByForm {
   }
 
   displayAllLi() {
-    this.liNodes.forEach((liNode) => {
+    this.itemNodes.forEach((liNode) => {
       liNode.style.display = 'list-item';
     });
   }
 
   hideAllLiWithoutClass(className) {
-    this.liNodes.forEach((liNode) => {
+    this.itemNodes.forEach((liNode) => {
       if (!liNode.classList.contains(className)) {
         liNode.style.display = 'none';
       }
