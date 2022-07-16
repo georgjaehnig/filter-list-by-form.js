@@ -1,5 +1,7 @@
 class FilterListByForm {
 
+  separator = '_';
+
   constructor() {
     this.formNode = document.querySelector('form.form-list-filter-js');
     this.liNodes = document.querySelectorAll('ul.form-list-filter-js li');
@@ -77,7 +79,7 @@ class FilterListByForm {
       if (value == '1') {
         this.hideAllLiWithoutClass(key);
       } else {
-        this.hideAllLiWithoutClass(key + '_' + value);
+        this.hideAllLiWithoutClass(key + this.separator + value);
       }
     });
   }
