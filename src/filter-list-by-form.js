@@ -10,7 +10,7 @@ class FilterListByForm {
   }
 
   addEventListeners() {
-    window.addEventListener('hashchange', this.updateFromUrl);
+    window.addEventListener('hashchange', this.updateFromUrl.bind(this));
     Array.from(this.formNode.elements).forEach((elementNode) => {
       elementNode.addEventListener('change', this.updateFromForm.bind(this));
     });
