@@ -108,7 +108,7 @@ class FilterListByForm {
 
   displayAllLi() {
     this.itemNodes.forEach((liNode) => {
-      liNode.style.display = 'list-item';
+      liNode.style.display = 'block';
     });
   }
 
