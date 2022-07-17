@@ -180,13 +180,13 @@ class DataToContent {
         if (placeholderNode) {
           switch (key) {
             case 'currencies':
-              placeholderNode.innerHTML = placeholderNode.innerHTML + '<span title="' + value.toUpperCase() + '">' + this.mappings.currencies[value] + '</span> ';
+              placeholderNode.innerHTML = placeholderNode.innerHTML + '<span title="Currency: ' + value.toUpperCase() + '">' + this.mappings.currencies[value] + '</span> ';
               break;
             case 'iban':
-              placeholderNode.innerHTML = placeholderNode.innerHTML + '<span title="' + this.mappings.countries[value.toUpperCase()].name + '">' + this.mappings.countryFlags[value.toUpperCase()] + '</span> ';
+              placeholderNode.innerHTML = placeholderNode.innerHTML + '<span title="IBAN from ' + this.mappings.countries[value.toUpperCase()].name + '">' + this.mappings.countryFlags[value.toUpperCase()] + '</span> ';
               break;
             case 'languages':
-              placeholderNode.innerHTML = placeholderNode.innerHTML + '<span title="' + this.mappings.languages[value].name + '">' + this.mappings.languages[value].flag + '</span> ';
+              placeholderNode.innerHTML = placeholderNode.innerHTML + '<span title="Language: ' + this.mappings.languages[value].name + '">' + this.mappings.languages[value].flag + '</span> ';
               break;
           }
         }
