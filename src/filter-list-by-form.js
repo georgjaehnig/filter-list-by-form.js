@@ -162,8 +162,8 @@ class DataToContent {
     currencies: { aed: '🇦🇪', ars: '🇦🇷', aud: '🇦🇺', bdt: '🇧🇩', bgn: '🇧🇬', bwp: '🇧🇼', cad: '🇨🇦', chf: '🇨🇭', clp: '🇨🇱', cny: '🇨🇳', crc: '🇨🇷', czk: '🇨🇿', dkk: '🇩🇰', egp: '🇪🇬', eur: '🇪🇺', gbp: '🇬🇧', gel: '🇬🇪', ghs: '🇬🇭', hkd: '🇭🇰', hrk: '🇭🇷', huf: '🇭🇺', idr: '🇮🇩', ils: '🇮🇱', inr: '🇮🇳', jpy: '🇯🇵', kes: '🇰🇪', krw: '🇰🇷', lkr: '🇱🇰', mad: '🇲🇦', mxn: '🇲🇽', myr: '🇲🇾', ngn: '🇳🇬', nok: '🇳🇴', npr: '🇳🇵', nzd: '🇳🇿', pen: '🇵🇪', php: '🇵🇭', pkr: '🇵🇰', pln: '🇵🇱', ron: '🇷🇴', rub: '🇷🇺', sek: '🇸🇪', sgd: '🇸🇬', thb: '🇹🇭', try: '🇹🇷', tzs: '🇹🇿', uah: '🇺🇦', ugx: '🇺🇬', usd: '🇺🇸', uyu: '🇺🇾', vnd: '🇻🇳', xof: '🇸🇳', zar: '🇿🇦', zmw: '🇿🇲', }
   };
 
-  constructor(selector) {
-    this.itemNodes = document.querySelectorAll(selector);
+  constructor(itemSelector) {
+    this.itemNodes = document.querySelectorAll(itemSelector);
     this.fillPlaceholders();
   }
 
@@ -176,17 +176,17 @@ class DataToContent {
         }
         const key = keyAndValue[0];
         const value = keyAndValue[1];
-        const placeholderNode = itemNode.querySelector('span.' + key);
+        const placeholderNode = itemNode.querySelector('td.' + key);
         if (placeholderNode) {
           switch (key) {
             case 'currencies':
-              placeholderNode.innerHTML = placeholderNode.innerHTML + '<span title="' + value.toUpperCase() + '">' + this.mappings.currencies[value] + '</span>';
+              placeholderNode.innerHTML = placeholderNode.innerHTML + '<span title="' + value.toUpperCase() + '">' + this.mappings.currencies[value] + '</span> ';
               break;
             case 'iban':
-              placeholderNode.innerHTML = placeholderNode.innerHTML + '<span title="' + this.mappings.countries[value.toUpperCase()].name + '">' + this.mappings.countryFlags[value.toUpperCase()] + '</span>';
+              placeholderNode.innerHTML = placeholderNode.innerHTML + '<span title="' + this.mappings.countries[value.toUpperCase()].name + '">' + this.mappings.countryFlags[value.toUpperCase()] + '</span> ';
               break;
             case 'languages':
-              placeholderNode.innerHTML = placeholderNode.innerHTML + '<span title="' + this.mappings.languages[value].name + '">' + this.mappings.languages[value].flag + '</span>';
+              placeholderNode.innerHTML = placeholderNode.innerHTML + '<span title="' + this.mappings.languages[value].name + '">' + this.mappings.languages[value].flag + '</span> ';
               break;
           }
         }
