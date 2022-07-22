@@ -19,13 +19,13 @@ class FilterListByForm {
   updateFromUrl() {
     //this.formNode.scrollIntoView({ behavior: "smooth" });
     this.updateFormFromUrl();
-    this.updateEntries();
+    this.updateDisplay();
     this.updateFormClasses();
   };
 
   updateFromForm() {
     this.updateUrlFromForm();
-    this.updateEntries();
+    this.updateDisplay();
     this.updateFormClasses();
   };
 
@@ -77,15 +77,15 @@ class FilterListByForm {
 
   }
 
-  updateEntries() {
-    this.displayAllLi();
+  updateDisplay() {
+    this.displayAllItems();
     const url = new URL(document.URL);
     const urlSearchParams = new URLSearchParams(url.hash.slice(1, 200));
     urlSearchParams.forEach((value, key) => {
       if (value == '1') {
-        this.hideAllLiWithoutClass(key);
+        this.hideAllItemsNotMatching(key);
       } else {
-        this.hideAllLiWithoutClass(key + this.separator + value);
+        this.hideAllItemsNotMatching(key + this.separator + value);
       }
     });
   }
@@ -112,13 +112,13 @@ class FilterListByForm {
     });
   }
 
-  displayAllLi() {
+  displayAllItems() {
     this.itemNodes.forEach((liNode) => {
       liNode.style.display = 'table-row';
     });
   }
 
-  hideAllLiWithoutClass(className) {
+  hideAllItemsNotMatching(className) {
     this.itemNodes.forEach((liNode) => {
       if (!liNode.classList.contains(className)) {
         liNode.style.display = 'none';
