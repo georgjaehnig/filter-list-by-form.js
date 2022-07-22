@@ -167,8 +167,9 @@ class DataToContent {
     currencies: { all: '🇦🇱', aed: '🇦🇪', amd: '🇦🇲', ars: '🇦🇷', aud: '🇦🇺', bam: '🇧🇦', bdt: '🇧🇩', bgn: '🇧🇬', brl: '🇧🇷', bwp: '🇧🇼', cad: '🇨🇦', chf: '🇨🇭', clp: '🇨🇱', cny: '🇨🇳', crc: '🇨🇷', czk: '🇨🇿', dkk: '🇩🇰', egp: '🇪🇬', eur: '🇪🇺', gbp: '🇬🇧', gel: '🇬🇪', ghs: '🇬🇭', hkd: '🇭🇰', hrk: '🇭🇷', huf: '🇭🇺', idr: '🇮🇩', ils: '🇮🇱', inr: '🇮🇳', jpy: '🇯🇵', kes: '🇰🇪', krw: '🇰🇷', lkr: '🇱🇰', mad: '🇲🇦', mdl: '🇲🇩', mkd: '🇲🇰', mxn: '🇲🇽', myr: '🇲🇾', ngn: '🇳🇬', nok: '🇳🇴', npr: '🇳🇵', nzd: '🇳🇿', pen: '🇵🇪', php: '🇵🇭', pkr: '🇵🇰', pln: '🇵🇱', rsd: '🇷🇸', ron: '🇷🇴', rub: '🇷🇺', sar: '🇸🇦', sek: '🇸🇪', sgd: '🇸🇬', thb: '🇹🇭', try: '🇹🇷', tzs: '🇹🇿', uah: '🇺🇦', ugx: '🇺🇬', usd: '🇺🇸', uyu: '🇺🇾', vnd: '🇻🇳', xof: '🇸🇳', zar: '🇿🇦', zmw: '🇿🇲', }
   };
 
-  constructor(itemSelector) {
+  constructor(itemSelector, placeholderSelector) {
     this.itemNodes = document.querySelectorAll(itemSelector);
+    this.placeholderSelector = placeholderSelector;
     this.fillPlaceholders();
   }
 
@@ -181,7 +182,8 @@ class DataToContent {
         }
         const key = keyAndValue[0];
         const value = keyAndValue[1];
-        const placeholderNode = itemNode.querySelector('td.' + key);
+        const placeholderNode = itemNode.querySelector(this.placeholderSelector.replace('{key}', key));
+        console.log(placeholderNode)
         if (placeholderNode) {
           switch (key) {
             case 'currencies':
