@@ -114,14 +114,14 @@ class FilterListByForm {
 
   displayAllItems() {
     this.itemNodes.forEach((liNode) => {
-      liNode.style.display = 'table-row';
+      liNode.hidden = false;
     });
   }
 
   hideAllItemsNotMatching(className) {
     this.itemNodes.forEach((liNode) => {
       if (!liNode.classList.contains(className)) {
-        liNode.style.display = 'none';
+        liNode.hidden = true;
       }
     });
   }
