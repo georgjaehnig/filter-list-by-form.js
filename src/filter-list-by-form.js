@@ -17,7 +17,6 @@ class FilterListByForm {
   }
 
   updateFromUrl() {
-    //this.formNode.scrollIntoView({ behavior: "smooth" });
     this.updateFormFromUrl();
     this.updateDisplay();
     this.updateFormClasses();
